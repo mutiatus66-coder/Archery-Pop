@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Archery Pop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="app" role="application" aria-label="Archery Pop game">
+    <!-- Top: icon + title -->
+    <header class="topbar" role="banner">
+      <img src="game-icon.png" alt="Archery Pop icon" class="game-icon" />
+      <h1 class="title">Archery Pop</h1>
+      <div class="spacer" aria-hidden="true"></div>
+      <button id="pauseBtn" class="btn" aria-pressed="false" aria-label="Pause game">Pause</button>
+    </header>
+
+    <!-- Board wrapper (centered fixed size 960x600) -->
+    <main class="board-wrap" role="main" aria-labelledby="game-title">
+      <!-- Instruction / Menu overlay (centered) -->
+      <div id="menuOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
+        <div class="overlay-box">
+          <h2 id="menuTitle">Instruksi Permainan</h2>
+          <p class="lead">
+            Tembak target panah sebelum mereka mencapai dasar. 
+            Setiap tembakan yang mengenai target memberi <strong>+10</strong>.  
+            Setiap target yang mencapai dasar <strong>-5</strong> dan kehilangan <strong>1 nyawa</strong>.
+          </p>
+
+          <ol>
+            <li>Masukkan nama Pemain (wajib).</li>
+            <li>Gerakkan mouse untuk mengarahkan scope, klik kiri untuk menembak.</li>
+            <li>Tekan <kbd>Space</kbd> untuk Pause / Resume.</li>
+          </ol>
+
+          <label for="playerName" class="sr-only">Nama Pemain</label>
+          <input id="playerName" type="text" placeholder="Masukkan nama Anda" aria-required="true" />
+
+          <div class="menu-actions">
+            <button id="playBtn" class="btn primary" disabled aria-disabled="true">Play</button>
+            <button id="resetHsBtn" class="btn danger">Reset High Score</button>
+          </div>
+
+          <p class="muted">High Score: <span id="displayHighscore">0</span></p>
+        </div>
+      </div>
+
+      <!-- Game HUD (top layer) -->
+      <div class="hud" role="status" aria-live="polite">
+        <div class="hud-left">Score: <span id="score">0</span></div>
+        <div class="hud-center" aria-hidden="false">
+          <div id="lives" class="lives" aria-label="Lives"></div>
+        </div>
+        <div class="hud-right"><span id="timer">01:00</span></div>
+      </div>
+
+      <!-- Game area: canvas and scope image -->
+      <div id="board" class="board" role="region" aria-label="Game board (960 by 600)">
+        <canvas id="gameCanvas" width="960" height="600"></canvas>
+        <img id="scopeImage" src="cursor-scope.png" alt="" aria-hidden="true" />
+      </div>
+
+      <!-- Pause overlay -->
+      <div id="pauseOverlay" class="overlay hidden" role="dialog" aria-modal="true">
+        <div class="overlay-box">
+          <h2>Paused</h2>
+          <div class="menu-actions">
+            <button id="resumeBtn" class="btn primary">Resume</button>
+            <button id="quitBtn" class="btn">Quit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Over overlay -->
+      <div id="gameOverOverlay" class="overlay hidden" role="dialog" aria-modal="true">
+        <div class="overlay-box">
+          <h2>GAME OVER</h2>
+          <p>Nama: <strong id="finalName"></strong></p>
+          <p>Skor Akhir: <strong id="finalScore">0</strong></p>
+          <p id="newHigh" class="highlight hidden">New High Score!</p>
+          <p>High Score: <strong id="finalHighscore">0</strong></p>
+          <div class="menu-actions">
+            <button id="playAgainBtn" class="btn primary">Play Again</button>
+            <button id="toMenuBtn" class="btn">Main Menu</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <small>Archery Pop • Client-side module</small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
